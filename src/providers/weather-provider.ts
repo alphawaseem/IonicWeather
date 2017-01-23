@@ -13,10 +13,10 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class WeatherProvider {
 
-  conditions = 'http://api.wunderground.com/api/373a5cf6b3655712/conditions/q/zmw:';
-  hourly = 'http://api.wunderground.com/api/373a5cf6b3655712/hourly/q/zmw:';
-  search = 'http://autocomplete.wunderground.com/aq?query=';
-  forecasts : any[] = [];
+  private conditions = 'http://api.wunderground.com/api/373a5cf6b3655712/conditions/q/zmw:';
+  private hourly = 'http://api.wunderground.com/api/373a5cf6b3655712/hourly/q/zmw:';
+  private search = 'http://autocomplete.wunderground.com/aq?query=';
+  private forecasts : any[] = [];
   constructor(public http: Http) {
     console.log('Hello WeatherProvider Provider');
   }
