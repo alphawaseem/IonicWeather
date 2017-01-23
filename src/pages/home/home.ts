@@ -12,6 +12,7 @@ export class HomePage implements OnInit {
   inCel : boolean = true;
   forecasts : MyWeatherInfo[];
   location : MyLocation ;
+  searchResults : any[];
   ngOnInit(){
     this.weatherProvider.getHourlyWeather().subscribe(res => {
       this.forecasts=res;
@@ -31,7 +32,9 @@ export class HomePage implements OnInit {
   }
 
   searchCities(query){
-    this.weatherProvider.searchCities(query).subscribe(res => console.log(res));
+    this.weatherProvider.searchCities(query).subscribe(res => {
+      this.searchResults = res.RESULTS;
+    });
   }
 
 }
