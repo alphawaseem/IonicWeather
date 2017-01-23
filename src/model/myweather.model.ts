@@ -8,3 +8,23 @@ export interface MyWeatherInfo {
     time_string : string,
     humidity : string
 }
+
+export interface MyLocation {
+    city : string,
+    state? :string,
+    country : string
+}
+
+export interface MoonPhase{
+    percentIlluminated : number,
+    ageOfMoon : number 
+}
+
+export interface Sunset {
+    hour : number,
+    min : number
+}
+
+export interface Sunrise extends Sunset{
+    
+}
