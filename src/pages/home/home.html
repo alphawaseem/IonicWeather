@@ -18,7 +18,7 @@
     <ion-grid *ngIf="weather">
         <ion-row>
             <ion-col width-100 text-center>
-                <!--<h3>{{weather.city}}</h3>-->
+                <h3>{{location.city}}, {{location.country}}</h3>
                 <small>{{weather.time_string}}</small>
                 <div class="icon"><img [src]="weather.icon_url"></div>
                 <p>{{weather.condition}} - {{ inCel ? weather.temp_c+'&deg; C' : weather.temp_f+'&deg; F' }} </p>

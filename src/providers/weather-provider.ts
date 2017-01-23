@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { MyWeatherInfo } from '../model/myweather.model';
+import { MyWeatherInfo,MyLocation } from '../model/myweather.model';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
@@ -13,30 +13,35 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class WeatherProvider {
 
-  private conditions = 'http://api.wunderground.com/api/373a5cf6b3655712/conditions/q/zmw:';
-  private hourly = 'http://api.wunderground.com/api/373a5cf6b3655712/hourly/q/zmw:';
-  private search = 'http://autocomplete.wunderground.com/aq?query=';
+  private hourlyForecastUrl = 'http://api.wunderground.com/api/373a5cf6b3655712/hourly/q/zmw:';
+  private autoSearchUrl = 'http://autocomplete.wunderground.com/aq?query=';
+  private cityUrl = 'http://api.wunderground.com/api/373a5cf6b3655712/geolookup/q/zmw:';
   private forecasts : any[] = [];
+
   constructor(public http: Http) {
-    console.log('Hello WeatherProvider Provider');
+    console.log('Hello WeatherProvider');
   }
   getHourlyWeather(zmw? : string) {
-    let self = this;
     zmw = zmw || '00000.36.43263';
-    console.log('called');
-    return this.http.get(this.hourly+zmw+'.json').map(res => {
+    return this.http.get(this.hourlyForecastUrl+zmw+'.json').map(res => {
       let forecasts :any[];
-      console.log(res.json());
      res.json().hourly_forecast.forEach(forecast => {
-         this.forecasts.push(self.parseRequiredFields(forecast));
+         this.forecasts.push(this.parseRequiredFields(forecast));
      });
      return this.forecasts;
     });
   }
-  
+
+  getCity(zmw?: string){
+    zmw = zmw || '00000.36.43263';
+    return this.http.get(this.cityUrl+zmw+'.json').map(res => {
+      return res.json().location;
+    });
+
+  }
 
   searchCities(query){
-    return this.http.get(this.search+query).map(res => res.json());
+    return this.http.get(this.autoSearchUrl+query).map(res => res.json());
   }
 
   parseRequiredFields(forecast_object):MyWeatherInfo{

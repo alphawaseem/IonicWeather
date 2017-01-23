@@ -1,7 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { WeatherProvider } from '../../providers/weather-provider';
 import { NavController } from 'ionic-angular';
-import { MyWeatherInfo } from '../../model/myweather.model';
+import { MyWeatherInfo,MyLocation } from '../../model/myweather.model';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -10,12 +10,20 @@ export class HomePage implements OnInit {
 
   weather : MyWeatherInfo;
   inCel : boolean = true;
-  forecasts
+  forecasts : MyWeatherInfo[];
+  location : MyLocation ;
   ngOnInit(){
     this.weatherProvider.getHourlyWeather().subscribe(res => {
       this.forecasts=res;
       this.weather = this.forecasts[0];
     }); 
+    this.weatherProvider.getCity().subscribe(res => {
+      this.location = {
+        city : res.city,
+        state : res.state,
+        country : res.country
+      }
+    });
   }
   constructor(public navCtrl: NavController
   ,private weatherProvider : WeatherProvider) {

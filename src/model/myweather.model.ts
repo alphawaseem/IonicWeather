@@ -28,3 +28,11 @@ export interface Sunset {
 export interface Sunrise extends Sunset{
     
 }
+
+export interface WeatherForecast  {
+    weatherData : MyWeatherInfo,
+    locationData : MyLocation,
+    moonPhaseData : MoonPhase,
+    sunriseData : Sunrise,
+    sunsetData : Sunset
+}
