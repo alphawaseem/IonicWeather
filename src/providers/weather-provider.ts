@@ -18,6 +18,6 @@ export class WeatherProvider {
   }
   getWeather(zmw? : string) {
     zmw = zmw || '00000.36.43263';
-    return this.http.get(this.conditions+zmw+'.json').map(res=>res.json());
+    return this.http.get(this.conditions+zmw+'.json').map(res=>res.json().current_observation);
   }
 }

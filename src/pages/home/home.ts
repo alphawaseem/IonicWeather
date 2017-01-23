@@ -8,10 +8,13 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
+  weather : any;
+  inCel : boolean = true;
   constructor(public navCtrl: NavController
   ,private weatherProvider : WeatherProvider) {
     this.weatherProvider.getWeather().subscribe(weather => {
       console.log(weather);
+      this.weather = weather;
     });
   }
 
