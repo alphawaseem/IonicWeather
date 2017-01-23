@@ -18,10 +18,10 @@
     <ion-grid *ngIf="weather">
         <ion-row>
             <ion-col width-100 text-center>
-                <h3>{{weather.display_location.full}}</h3>
-                <small>{{weather.observation_time}}</small>
+                <!--<h3>{{weather.city}}</h3>-->
+                <small>{{weather.time_string}}</small>
                 <div class="icon"><img [src]="weather.icon_url"></div>
-                <p>{{weather.weather}} - {{ inCel ? weather.temp_c+'&deg; C' : weather.temp_f+'&deg; F' }} </p>
+                <p>{{weather.condition}} - {{ inCel ? weather.temp_c+'&deg; C' : weather.temp_f+'&deg; F' }} </p>
 
             </ion-col>
         </ion-row>
@@ -29,17 +29,15 @@
             <ion-col width-100>
                 <ion-list inset class="teal-list">
                     <ion-item>
-                        Temp : {{weather.temperature_string}}
+                        Temp : {{weather.temp_c+'&deg; C ' + ' ( '+ weather.temp_f+'&deg; F )'}}
                     </ion-item>
                     <ion-item>
-                        Humidity : {{weather.relative_humidity}}
+                        Humidity : {{weather.humidity}}
                     </ion-item>
                     <ion-item>
                         Feels Like : {{weather.feelslike_c+'&deg; C'}}
                     </ion-item>
-                    <ion-item>
-                        Wind : {{weather.wind_string}}
-                    </ion-item>
+
 
                 </ion-list>
             </ion-col>

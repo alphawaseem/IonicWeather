@@ -10,9 +10,12 @@ export class HomePage implements OnInit {
 
   weather : MyWeatherInfo;
   inCel : boolean = true;
+  forecasts
   ngOnInit(){
-    this.weatherProvider.getHourlyWeather().subscribe(res => console.log(res));
-     
+    this.weatherProvider.getHourlyWeather().subscribe(res => {
+      this.forecasts=res;
+      this.weather = this.forecasts[0];
+    }); 
   }
   constructor(public navCtrl: NavController
   ,private weatherProvider : WeatherProvider) {
