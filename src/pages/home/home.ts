@@ -1,21 +1,26 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { WeatherProvider } from '../../providers/weather-provider';
 import { NavController } from 'ionic-angular';
-
+import { MyWeatherInfo } from '../../model/myweather.model';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
-  weather : any;
+  weather : MyWeatherInfo;
   inCel : boolean = true;
+  ngOnInit(){
+    this.weatherProvider.getHourlyWeather().subscribe(res => console.log(res));
+     
+  }
   constructor(public navCtrl: NavController
   ,private weatherProvider : WeatherProvider) {
-    this.weatherProvider.getWeather().subscribe(weather => {
-      console.log(weather);
-      this.weather = weather;
-    });
+    
+  }
+
+  searchCities(query){
+    this.weatherProvider.searchCities(query).subscribe(res => console.log(res));
   }
 
 }
