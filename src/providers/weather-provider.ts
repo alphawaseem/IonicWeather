@@ -24,11 +24,14 @@ export class WeatherProvider {
   getHourlyWeather(zmw? : string) {
     zmw = zmw || '00000.36.43263';
     return this.http.get(this.hourlyForecastUrl+zmw+'.json').map(res => {
-      let forecasts :any[];
+      if(res.json().hourly_forecast){
+        let forecasts :any[];
      res.json().hourly_forecast.forEach(forecast => {
          this.forecasts.push(this.parseRequiredFields(forecast));
      });
      return this.forecasts;
+      }
+      
     });
   }
 
