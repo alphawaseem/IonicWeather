@@ -20,11 +20,11 @@ export class HomePage implements OnInit {
     }); 
     this.weatherProvider.getCity().subscribe(res => {
       if(res){
-      this.location = {
-        city : res.city,
-        state : res.state,
-        country : res.country
-      }
+        this.location = {
+          city : res.city,
+          state : res.state,
+          country : res.country
+        }
       }
     });
   }
