@@ -33,8 +33,10 @@ export class HomePage implements OnInit {
   getForecast(zmw:string){
     this.forecasts = [];
     this.weatherProvider.getHourlyWeather(zmw).subscribe(res => {
-      this.forecasts=res;
-      this.weather = this.forecasts[0];
+      if(res){
+        this.forecasts=res;
+        this.weather = this.forecasts[0];
+      }
     }); 
   }
 
