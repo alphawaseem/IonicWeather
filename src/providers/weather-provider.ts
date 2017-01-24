@@ -16,7 +16,6 @@ export class WeatherProvider {
   private hourlyForecastUrl = 'http://api.wunderground.com/api/373a5cf6b3655712/hourly/q/zmw:';
   private autoSearchUrl = 'http://autocomplete.wunderground.com/aq?query=';
   private cityUrl = 'http://api.wunderground.com/api/373a5cf6b3655712/geolookup/q/zmw:';
-  private forecasts : any[] = [];
 
   constructor(public http: Http) {
     console.log('Hello WeatherProvider');
@@ -25,13 +24,12 @@ export class WeatherProvider {
     zmw = zmw || '00000.36.43263';
     return this.http.get(this.hourlyForecastUrl+zmw+'.json').map(res => {
       if(res.json().hourly_forecast){
-        let forecasts :any[];
-     res.json().hourly_forecast.forEach(forecast => {
-         this.forecasts.push(this.parseRequiredFields(forecast));
-     });
-     return this.forecasts;
+        let forecasts :any[] = [];
+        res.json().hourly_forecast.forEach(forecast => {
+            forecasts.push(this.parseRequiredFields(forecast));
+        });
+        return forecasts;
       }
-      
     });
   }
 
