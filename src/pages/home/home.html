@@ -7,8 +7,8 @@
 <ion-content padding class="weather">
     <ion-row>
         <ion-col width-100 text-center>
-            <ion-searchbar (ionInput)="searchCities($event.target.value)" #value placeholder="City name here"></ion-searchbar>
-            <ion-list *ngIf="value.value" class="search-list">
+            <ion-searchbar (ionInput)="searchCities($event.target.value)" [(ngModel)]="searchStr" placeholder="City name here"></ion-searchbar>
+            <ion-list *ngIf="searchStr" class="search-list">
                 <ion-item class="city-item" *ngFor="let city of searchResults" (click)="selectCity(city)">
                     {{ city.name }}
                 </ion-item>

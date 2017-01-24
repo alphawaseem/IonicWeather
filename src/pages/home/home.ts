@@ -13,6 +13,7 @@ export class HomePage implements OnInit {
   forecasts : MyWeatherInfo[];
   location : MyLocation ;
   searchResults : any[] = [];
+  searchStr : string = '' ;
 
   constructor(public navCtrl: NavController,private weatherProvider : WeatherProvider) {
   }
@@ -63,6 +64,7 @@ export class HomePage implements OnInit {
   selectCity(city){
     this.getForecast(city.zmw);
     this.getCity(city.zmw);
+    this.searchStr = '';
   }
 
 }
