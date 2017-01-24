@@ -20,8 +20,7 @@ export class WeatherProvider {
   constructor(public http: Http) {
     console.log('Hello WeatherProvider');
   }
-  getHourlyWeather(zmw? : string) {
-    zmw = zmw || '00000.36.43263';
+  getHourlyWeather(zmw: string) {
     return this.http.get(this.hourlyForecastUrl+zmw+'.json').map(res => {
       if(res.json().hourly_forecast){
         let forecasts :any[] = [];
@@ -33,8 +32,7 @@ export class WeatherProvider {
     });
   }
 
-  getCity(zmw?: string){
-    zmw = zmw || '00000.36.43263';
+  getCity(zmw: string){
     return this.http.get(this.cityUrl+zmw+'.json').map(res => {
       return res.json().location;
     });
