@@ -13,12 +13,36 @@ export class HomePage implements OnInit {
   forecasts : MyWeatherInfo[];
   location : MyLocation ;
   searchResults : any[] = [];
+
+  constructor(public navCtrl: NavController,private weatherProvider : WeatherProvider) {
+  }
+
   ngOnInit(){
-    this.weatherProvider.getHourlyWeather().subscribe(res => {
+    let defaultCityZMW = '00000.36.43263';
+    let cityZMW = localStorage.getItem('defaultCity');
+    if(!cityZMW){
+      this.setDefaultCity(defaultCityZMW);
+      cityZMW = localStorage.getItem('defaultCity');
+    }
+    this.getCity(cityZMW);
+    this.getForecast(cityZMW); 
+  }
+
+  
+  getForecast(zmw:string){
+    this.forecasts = [];
+    this.weatherProvider.getHourlyWeather(zmw).subscribe(res => {
       this.forecasts=res;
       this.weather = this.forecasts[0];
     }); 
-    this.weatherProvider.getCity().subscribe(res => {
+  }
+
+  setDefaultCity(zmw:string){
+    localStorage.setItem('defaultCity',zmw);
+  }
+
+  getCity(zmw:string){
+    this.weatherProvider.getCity(zmw).subscribe(res => {
       if(res){
         this.location = {
           city : res.city,
@@ -28,15 +52,17 @@ export class HomePage implements OnInit {
       }
     });
   }
-  constructor(public navCtrl: NavController
-  ,private weatherProvider : WeatherProvider) {
-    
-  }
+  
 
   searchCities(query){
     this.weatherProvider.searchCities(query).subscribe(res => {
       this.searchResults = res.RESULTS;
     });
+  }
+
+  selectCity(city){
+    this.getForecast(city.zmw);
+    this.getCity(city.zmw);
   }
 
 }

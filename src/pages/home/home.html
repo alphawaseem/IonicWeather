@@ -9,7 +9,7 @@
         <ion-col width-100 text-center>
             <ion-searchbar (ionInput)="searchCities($event.target.value)" #value placeholder="City name here"></ion-searchbar>
             <ion-list *ngIf="value.value" class="search-list">
-                <ion-item *ngFor="let city of searchResults">
+                <ion-item class="city-item" *ngFor="let city of searchResults" (click)="selectCity(city)">
                     {{ city.name }}
                 </ion-item>
             </ion-list>
@@ -19,9 +19,9 @@
         <ion-row>
             <ion-col width-100 text-center>
                 <h3 *ngIf="location">{{location.city}}, {{location.country}}</h3>
-                <small>{{weather.time_string}}</small>
                 <div class="icon"><img [src]="weather.icon_url"></div>
                 <p>{{weather.condition}} - {{ inCel ? weather.temp_c+'&deg; C' : weather.temp_f+'&deg; F' }} </p>
+                <small>at {{weather.time_string}}</small>
 
             </ion-col>
         </ion-row>
