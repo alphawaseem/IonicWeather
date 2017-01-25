@@ -66,6 +66,7 @@ export class HomePage implements OnInit {
   selectCity(city){
     this.getForecast(city.zmw);
     this.getCity(city.zmw);
+    this.setDefaultCity(city.zmw);
     this.searchStr = '';
   }
 
